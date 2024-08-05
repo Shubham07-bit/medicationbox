@@ -1,1 +1,1 @@
-web: gunicorn medicationbox.wsgi --log-file -
+web: gunicorn meditionbox.wsgi --log-file -
