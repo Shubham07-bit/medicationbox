@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Report</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tracker/table.css' %}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table thead {
+            background-color: #16a085;
+            color: #fff;
+        }
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        .form-group label {
+            margin-right: 10px;
+        }
+        .form-group select, .form-group input {
+            padding: 5px;
+            font-size: 16px;
+        }
+        .button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #16a085;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #138d75;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="title"><span>Monthly Report</span></div>
+            <div class="form-group">
+                <form id="month-form">
+                    <label for="month">Select Month:</label>
+                    <select id="month" name="month">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <label for="year">Select Year:</label>
+                    <input type="number" id="year" name="year" value="{{ year }}" min="2000" max="{{ current_year }}">
+                    <button type="button" class="button" onclick="updateData()">Show Report</button>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Dose 1</th>
+                        <th>Dose 2</th>
+                        <th>Dose 3</th>
+                        <th>Dose 4</th>
+                    </tr>
+                </thead>
+                <tbody id="monthly-table-body">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function updateData() {
+            const month = document.getElementById('month').value;
+            const year = document.getElementById('year').value;
+            
+            fetch(`/api/real_time_data/?month=${month}&year=${year}`)
+                .then(response => response.json())
+                .then(data => {
+                    const monthlyTableBody = document.getElementById('monthly-table-body');
+
+                    // Clear existing rows
+                    monthlyTableBody.innerHTML = '';
+
+                    // Update monthly table
+                    data.monthly.forEach(dose => {
+                        const row = `
+                            <tr>
+                                <td>${dose.date}</td>
+                                <td>${dose.dose1}</td>
+                                <td>${dose.dose2}</td>
+                                <td>${dose.dose3}</td>
+                                <td>${dose.dose4}</td>
+                            </tr>`;
+                        monthlyTableBody.insertAdjacentHTML('beforeend', row);
+                    });
+
+                    // Update form hidden inputs
+                    document.getElementById('form-month').value = month;
+                    document.getElementById('form-year').value = year;
+                })
+                .catch(error => console.error('Error fetching real-time data:', error));
+        }
+
+        // Initial data fetch
+        document.addEventListener('DOMContentLoaded', () => {
+            const defaultMonth = document.getElementById('month').value;
+            const defaultYear = document.getElementById('year').value;
+            updateData(defaultMonth, defaultYear);
+        });
+    </script>
+</body>
+</html>

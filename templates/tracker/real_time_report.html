@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Report</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
+    <style>
+        /* Add or update styles here */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table thead {
+            background-color: #16a085;
+            color: #fff;
+        }
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="title"><span>Weekly Report</span></div>
+            <h2>Weekly Report</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Dose</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="weekly-table-body">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+            <h2>Monthly Report</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Dose</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody id="monthly-table-body">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function updateData() {
+            fetch('/api/real_time_data/')
+                .then(response => response.json())
+                .then(data => {
+                    const weeklyTableBody = document.getElementById('weekly-table-body');
+                    const monthlyTableBody = document.getElementById('monthly-table-body');
+
+                    // Clear existing rows
+                    weeklyTableBody.innerHTML = '';
+                    monthlyTableBody.innerHTML = '';
+
+                    // Update weekly table
+                    data.weekly.forEach(entry => {
+                        entry.doses.forEach(dose => {
+                            const row = `
+                                <tr>
+                                    <td>${entry.date}</td>
+                                    <td>${dose.type}</td>
+                                    <td>${dose.time}</td>
+                                </tr>`;
+                            weeklyTableBody.insertAdjacentHTML('beforeend', row);
+                        });
+                    });
+
+                    // Update monthly table
+                    data.monthly.forEach(entry => {
+                        entry.doses.forEach(dose => {
+                            const row = `
+                                <tr>
+                                    <td>${entry.date}</td>
+                                    <td>${dose.type}</td>
+                                    <td>${dose.time}</td>
+                                </tr>`;
+                            monthlyTableBody.insertAdjacentHTML('beforeend', row);
+                        });
+                    });
+                })
+                .catch(error => console.error('Error fetching real-time data:', error));
+        }
+
+        // Fetch data every 5 minutes
+        setInterval(updateData, 5 * 60 * 1000);
+
+        // Initial data fetch
+        document.addEventListener('DOMContentLoaded', updateData);
+    </script>
+</body>
+</html>

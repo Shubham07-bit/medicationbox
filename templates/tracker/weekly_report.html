@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Report</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tracker/table.css' %}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table thead {
+            background-color: #16a085;
+            color: #fff;
+        }
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="title"><span>Weekly Report</span></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Dose 1</th>
+                        <th>Dose 2</th>
+                        <th>Dose 3</th>
+                        <th>Dose 4</th>
+                    </tr>
+                </thead>
+                <tbody id="weekly-table-body">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function updateData() {
+            fetch('/api/real_time_data/')
+                .then(response => response.json())
+                .then(data => {
+                    const weeklyTableBody = document.getElementById('weekly-table-body');
+
+                    // Clear existing rows
+                    weeklyTableBody.innerHTML = '';
+
+                    // Update weekly table
+                    data.weekly.forEach(dose => {
+                        const row = `
+                            <tr>
+                                <td>${dose.date}</td>
+                                <td>${dose.dose1}</td>
+                                <td>${dose.dose2}</td>
+                                <td>${dose.dose3}</td>
+                                <td>${dose.dose4}</td>
+                            </tr>`;
+                        weeklyTableBody.insertAdjacentHTML('beforeend', row);
+                    });
+                })
+                .catch(error => console.error('Error fetching real-time data:', error));
+        }
+
+        // Fetch data every 5 minutes
+        setInterval(updateData, 5 * 60 * 1000);
+
+        // Initial data fetch
+        document.addEventListener('DOMContentLoaded', updateData);
+    </script>
+</body>
+</html>
