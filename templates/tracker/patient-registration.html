@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Patient Registration</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'tracker/images/fav.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'tracker/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tracker/css/style.css' %}" />
+</head>
+
+<body class="patient-registration-body">
+
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <img src="{% static 'tracker/images/Medidose.png' %}" alt="Logo" class="medidose-logo">
+        <div class="user-info">
+            <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="User Avatar" class="user-avatar">
+            <h2>John Doe</h2>
+            <p>Admin</p>
+        </div>
+        <nav class="nav-menu">
+            <a href="{% url 'patient_dashboard' %}" class="nav-item">Dashboard</a>
+            <a href="{% url 'contact' %}" class="nav-item">Contact</a>
+            <a href="{% url 'help' %}" class="nav-item">Help</a>
+            <a href="{% url 'login' %}" class="nav-item">Logout</a>
+            <!-- Add more links as needed -->
+        </nav>
+    </div>
+
+    <!-- Main content -->
+    <div id="main">
+        <div id="main" class="main-content">
+            <!-- Header -->
+            <div class="registration-header">
+                <img src="{% static 'tracker/images/Medidose.png' %}" alt="Logo" class="medidose-logo">
+                <h1>Patient Registration</h1>
+                <button class="openbtn" onclick="openNav()">☰</button>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="registration-desk">
+                        <div class="registration-form">
+                            <button onclick="goBack()" class="back-btn">← Back</button>
+                            <form action="{% url 'patient_registration' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="device_id">Device ID</label>
+                                    <input type="text" id="device_id" name="device_id" class="form-control" placeholder="Enter Device ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Patient Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter Patient Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Patient Age</label>
+                                    <input type="number" id="age" name="age" class="form-control" placeholder="Enter Patient Age">
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Patient Gender</label>
+                                    <select id="gender" name="gender" class="form-control">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="disease">Patient Disease</label>
+                                    <input type="text" id="disease" name="disease" class="form-control" placeholder="Enter Patient Disease">
+                                </div>
+                                <div class="form-group">
+                                    <label for="photo">Patient Photo (optional)</label>
+                                    <input type="file" id="photo" name="photo" class="form-control-file">
+                                </div>
+                                <button type="submit" class="btn">Submit</button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+</body>
+
+</html>

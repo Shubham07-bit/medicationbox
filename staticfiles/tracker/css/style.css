@@ -1,0 +1,1095 @@
+/* =======================================================================
+Template Name: Youtubers
+Author:  SmartEye Technologies
+Author URI: www.smarteyeapps.com
+Version: 1.0
+coder name:Prabin Raja
+Description: This Template is created for Youtubers
+======================================================================= */
+/* ===================================== Import Variables ================================== */
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700);
+@import url(https://fonts.googleapis.com/css?family=Arimo:300,400,400italic,700,700italic);
+/* ===================================== Basic CSS ==================================== */
+* {
+  margin: 0px;
+  padding: 0px;
+  list-style: none; }
+
+img {
+  max-width: 100%; }
+
+a {
+  text-decoration: none;
+  outline: none;
+  color: #444; }
+
+a:hover {
+  color: #444; }
+
+ul {
+  margin-bottom: 0;
+  padding-left: 0; }
+
+a:hover,
+a:focus,
+input,
+textarea {
+  text-decoration: none;
+  outline: none; }
+
+.center {
+  text-align: center; }
+
+.left {
+  text-align: left; }
+
+.right {
+  text-align: right; }
+
+.cp {
+  cursor: pointer; }
+
+html, body {
+  height: 100%; }
+
+p {
+  margin-bottom: 0px;
+  width: 100%; }
+
+.no-padding {
+  padding: 0px; }
+
+.no-margin {
+  margin: 0px; }
+
+.hid {
+  display: none; }
+
+.top-mar {
+  margin-top: 15px; }
+
+.h-100 {
+  height: 100%; }
+
+::placeholder {
+  color: #747f8a !important;
+  font-size: 13px;
+  opacity: .5 !important; }
+
+.container-fluid {
+  padding: 0px; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Open Sans", sans-serif;
+  color: #545454; }
+
+strong {
+  font-family: "Open Sans", sans-serif; }
+
+body {
+  background-color: #f1f1f145 !important;
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: #6A6A6A;
+  overflow-x: hidden; }
+
+.session-title {
+  padding: 30px;
+  margin: 0px;
+  margin-bottom: 20px; }
+  .session-title h2 {
+    width: 100%;
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600; }
+  .session-title p {
+    max-width: 850px;
+    text-align: center;
+    float: none;
+    margin: auto;
+    font-size: .83rem;
+    margin-top: 15px; }
+  .session-title span {
+    float: right;
+    font-style: italic; }
+
+.inner-title {
+  padding: 20px;
+  padding-left: 0px;
+  margin: 0px;
+  margin-bottom: 10px;
+  padding-bottom: 0px;
+  border-bottom: 1px solid #ccccccc4;
+  display: block;
+  padding-right: 0px; }
+  .inner-title h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid #863dd9;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    width: 300px; }
+  .inner-title p {
+    width: 100%;
+    text-align: center; }
+  .inner-title .btn {
+    float: right;
+    margin-top: -38px;
+    font-weight: 600;
+    font-size: .8rem; }
+
+.page-nav {
+  background-size: 100%;
+  padding: 68px;
+  text-align: center;
+  background-color: #eaeaea; }
+  .page-nav ul {
+    float: none;
+    margin: auto; }
+  @media screen and (max-width: 992px) {
+    .page-nav {
+      background-size: auto; } }
+  @media screen and (max-width: 767px) {
+    .page-nav {
+      padding-top: 100px; } }
+  @media screen and (max-width: 356px) {
+    .page-nav {
+      padding-top: 200px; } }
+  .page-nav h2 {
+    font-size: 28px;
+    width: 100%;
+    font-weight: 700;
+    color: #444; }
+    @media screen and (max-width: 600px) {
+      .page-nav h2 {
+        font-size: 26px; } }
+  .page-nav ul li {
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-size: .93rem;
+    font-weight: 600;
+    color: #444; }
+    .page-nav ul li i {
+      width: 30px;
+      text-align: center;
+      color: #444; }
+    .page-nav ul li a {
+      color: #444;
+      font-size: .93rem;
+      font-weight: 600; }
+
+.btn-success {
+  background-color: #51be78;
+  border-color: #51be78; }
+  .btn-success:hover {
+    background-color: #51be78 !important;
+    border-color: #51be78 !important; }
+  .btn-success:active {
+    background-color: #51be78 !important;
+    border-color: #51be78 !important; }
+  .btn-success:focus {
+    background-color: #51be78 !important;
+    border-color: #51be78 !important;
+    box-shadow: none !important; }
+
+.btn-primary {
+  background-color: #01b3a7;
+  border-color: #01b3a7; }
+  .btn-primary:hover {
+    background-color: #01b3a7 !important;
+    border-color: #01b3a7 !important; }
+  .btn-primary:active {
+    background-color: #01b3a7 !important;
+    border-color: #01b3a7 !important; }
+  .btn-primary:focus {
+    background-color: #01b3a7 !important;
+    border-color: #01b3a7 !important;
+    box-shadow: none !important; }
+
+.btn {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 2px; }
+
+.form-control:focus {
+  box-shadow: none !important;
+  border: 0px; }
+
+.btn-light {
+  background-color: #FFF;
+  color: #3F3F3F; }
+
+.collapse.show {
+  display: block !important; }
+
+.form-control:focus {
+  box-shadow: none;
+  border: 0px; }
+
+.form-control {
+  background-color: #F8F8F8;
+  margin-bottom: 20px; }
+  .form-control:focus {
+    background-color: #FFF;
+    border-color: #CCC; }
+
+.container {
+  max-width: 1170px; }
+  @media screen and (max-width: 575px) {
+    .container {
+      padding: 10px 15px; } }
+
+/* ===================================== Login Page Design CSS ==================================== */
+.form-login-body {
+  background-image: url(../images/bg.jpg);
+  background-size: cover; }
+  @media screen and (max-width: 991px) {
+    .form-login-body {
+      padding-left: 30px;
+      padding-right: 30px; } }
+  @media screen and (max-width: 480px) {
+    .form-login-body {
+      padding-left: 15px;
+      padding-right: 15px; } }
+  .form-login-body .login-desk {
+    filter: drop-shadow(0 0 13.5px rgba(0, 0, 0, 0.09));
+    margin-top: 5%;
+    margin-bottom: 5%; }
+    .form-login-body .login-desk .detail-box {
+      background-color: #d5f7fcfa;
+      padding: 20px; }
+      .form-login-body .login-desk .detail-box .logo {
+        width: 130px; }
+      .form-login-body .login-desk .detail-box .help {
+        width: 450px;
+        margin-top: 30px;
+        margin-bottom: 50px; }
+      .form-login-body .login-desk .detail-box .detailsh {
+        text-align: center; }
+        .form-login-body .login-desk .detail-box .detailsh h3 {
+          font-size: 1.2rem;
+          margin-bottom: 15px; }
+        .form-login-body .login-desk .detail-box .detailsh p {
+          font-size: .8rem; }
+    .form-login-body .login-desk .loginform {
+      background-color: #374ce7c2;
+      text-align: center;
+      color: #FFF;
+      padding: 50px; }
+      .form-login-body .login-desk .loginform a {
+        color: #FFF; }
+      .form-login-body .login-desk .loginform h4 {
+        color: #FFF;
+        font-size: 1.3rem; }
+      .form-login-body .login-desk .loginform p {
+        font-size: .8rem;
+        margin-bottom: 50px; }
+      .form-login-body .login-desk .loginform .login-det .form-row {
+        margin-top: 20px; }
+        .form-login-body .login-desk .loginform .login-det .form-row label {
+          font-size: .85rem; }
+      .form-login-body .login-desk .loginform .login-det .input-group .input-group-prepend .input-group-text {
+        background-color: #2c4a69;
+        color: #ffffffcf;
+        border-right: 0px;
+        border: 0px; }
+      .form-login-body .login-desk .loginform .login-det .input-group .form-control {
+        background-color: #242635;
+        color: #FFF;
+        border-left: 0px;
+        border: 0px; }
+      .form-login-body .login-desk .loginform .login-det .input-group .form-control:focus {
+        border: 0px; }
+      .form-login-body .login-desk .loginform .login-det .btn-danger {
+        width: 100%;
+        border-radius: 0px;
+        background-color: #fa607e;
+        border-radius: 50px; }
+      .form-login-body .login-desk .loginform .forget {
+        text-align: right; }
+      .form-login-body .login-desk .loginform .social-link ul {
+        float: right;
+        margin-top: 30px; }
+        .form-login-body .login-desk .loginform .social-link ul li {
+          float: left;
+          padding: 15px;
+          font-size: .9rem; }
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #FFF !important; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #FFF !important; }
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #FFF !important; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #FFF !important; }
+
+
+/* ===================================== Patient Registration Styles ==================================== */
+/* Registration Page Styles */
+.patient-registration-body {
+  background-image: url(../images/bg.jpg);
+  background-size: cover;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 991px) {
+  .patient-registration-body {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .patient-registration-body {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+/* Header styling */
+.registration-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #374ce7c2; /* Match with dashboard header color */
+  color: #FFF;
+  padding: 20px;
+  border-radius: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  gap: 20px;
+}
+
+.medidose-logo {
+  height: 35px; /* Consistent with dashboard */
+  margin-right: 10px;
+}
+
+.registration-header h1 {
+  color: #FFF;
+  font-size: 2rem; 
+  text-align: center;
+  margin: 0;
+}
+
+.registration-desk {
+  filter: drop-shadow(0 0 13.5px rgba(0, 0, 0, 0.09));
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.registration-form {
+  background-color: #374ce7c2;
+  text-align: left;
+  color: #FFF;
+  padding: 30px;
+  border-radius: 10px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.registration-form label {
+  color: #FFF;
+  font-size: .85rem;
+}
+
+.registration-form .form-group {
+  margin-bottom: 20px;
+}
+
+.registration-form .form-control {
+  background-color: #242635;
+  color: #FFF;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.registration-form .form-control:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.registration-form .btn {
+  width: 20%;
+  background-color: #fa607e;
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+  color: #FFF;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.registration-form .btn:hover {
+  background-color: #f34261;
+}
+
+.registration-form .back-btn {
+  width: 15%;
+  background-color: #fa607e;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  color: #FFF;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.registration-form .back-btn:hover {
+  background-color: #f34261;
+}
+
+/* ===================================== Patient Dashboard Styles ==================================== */
+/* Background for the entire page */
+.patient-dashboard-body {
+  background-image: url(../images/bg.jpg);
+  background-size: cover;
+}
+
+
+
+/* Sidebar styles */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #374ce7c2; /* Custom color */
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.sidebar .medidose-logo {
+  height: auto; /* Maintain aspect ratio */
+  max-height: 35px; /* Set a maximum height */
+  margin-bottom: 20px; /* Space between logo and avatar */
+  width: auto; /* Maintain aspect ratio */
+  align-items: center;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #FFF; /* Text color */
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+/* Open button styling */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #fa607e; /* Custom color */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  position: absolute; /* Positioned absolutely within the header */
+  top: 15px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  z-index: 1001; /* Ensure button is above other content */
+}
+
+.openbtn:hover {
+  background-color: #f34261; /* Slightly lighter color on hover */
+}
+
+/* Main content section */
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+/* Responsive styling */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+
+
+/* User info styling */
+.user-info {
+  text-align: center;
+}
+
+.user-info h2{
+  color: white;
+  font-size: 2rem;
+}
+
+.user-info p{
+  color: white;
+  font-size: 1rem;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Navigation menu styling */
+.nav-menu {
+  margin-top: 20px;
+}
+
+.nav-item {
+  display: block;
+  color: #FFF;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.nav-item:hover {
+  background-color: #fa607e;
+}
+
+/* Dashboard header styling */
+.dashboard-header {
+  display: flex;
+  align-items: center; /* Vertically center items */
+  justify-content: center; /* Horizontally center items */
+  background-color: #374ce7c2; /* Match your design color */
+  color: #FFF;
+  padding: 20px 20px;
+  border-radius: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure header is above other content */
+  gap: 20px; /* Space between logo, text, and button */
+}
+
+.medidose-logo {
+  height: 35px; /* Adjust as needed */
+  margin-right: 10px;
+}
+
+.dashboard-header h1 {
+  color: #FFF;
+  font-size: 2rem; 
+  text-align: center;
+  margin: 0;
+}
+
+
+/* Controls container styling */
+.controls-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px; /* Adds space between items */
+}
+
+/* Search bar container styling */
+.search-bar-container {
+  flex: 1; /* Allows the input to take up available space */
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #242635c2;
+  color: #FFF;
+  font-size: 1rem;
+}
+
+/* Search button styling */
+.search-btn {
+  background-color: #fa607e;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: #FFF;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #f34261;
+}
+
+/* Add patient button styling */
+.add-patient-btn {
+  background-color: #fa607e;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: #FFF;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.add-patient-btn:hover {
+  background-color: #f34261;
+}
+
+
+/* Main content section */
+.dashboard-main {
+  padding: 20px;
+}
+
+/* Patient card container styling */
+.patient-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start; /* Align cards to the left */
+}
+
+.patient-card {
+  width: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.card-top {
+  background-color: #374ce7c2; /* Blue color for the top half */
+  padding: 20px;
+  text-align: center;
+}
+
+.patient-photo-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px; 
+  height: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #e0e0e0; /* Light grey background for initials */
+  overflow: hidden;
+}
+
+
+
+.patient-initials {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%; 
+  height: 100%; 
+  font-size: 1.5em;
+  color: #3f51b5; 
+}
+
+.card-bottom {
+  background-color: #242635c2; /* Grey color for the bottom half */
+  padding: 20px;
+  text-align: center;
+}
+
+
+.patient-name{
+  margin: 10px 0 5px;
+  font-size: 1.5em;
+  color: #ffffff; 
+}
+
+.patient-details {
+  margin: 0;
+  font-size: 1em;
+  color: #ffffff;
+}
+
+.dose-status {
+  list-style-type: none;
+  padding: 0;
+  margin: 15px 0;
+  font-size: 1em;
+}
+
+.dose-status li {
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f194; /* Light gray background for the whole block */
+}
+
+.dose-status-item {
+  display: flex;
+  width: 100%;
+}
+
+.dose-type, .dose-status-text {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.dose-type {
+  width: 50%; /* Half of the block */
+  background-color: rgba(162, 179, 178, 0.897); /* White color for the dose type */
+  color: rgb(0, 0, 0); /* Black color for the text */
+}
+
+.dose-status-text {
+  width: 50%; /* Half of the block */
+  color: rgb(58, 55, 55); /* Text color for the status */
+  text-align: center;
+}
+
+.status-taken .dose-status-text {
+  background-color: #4caf50; /* Green */
+}
+
+.status-not-taken .dose-status-text {
+  background-color: #ff9800; /* Orange */
+}
+
+.status-missed .dose-status-text {
+  background-color: #f44336; /* Red */
+}
+
+
+.view-details-btn {
+  background-color: #374ce7c2; 
+  color: white;
+  padding: 15px 0; /* Adjusted padding for better height */
+  border: none;
+  border-radius: 0 0 15px 15px; /* Matches the bottom corners of the card */
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Make the button cover the full width */
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.view-details-btn:hover {
+  background-color: #374ce7ea; 
+}
+
+
+/* ===================================== Patient Details Page Styles ==================================== */
+/* Background for the entire page */
+.patient-details-body {
+  background-image: url(../images/bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Patient Details Container */
+.patient-details-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #374ce7c2;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px  ;
+}
+
+/* Header Styling */
+.details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.details-header h1{
+  color: white;
+  margin-right: 10px;
+  margin-top: 10px;
+  font-size: 2rem; 
+}
+
+.details-header button {
+  background-color: #fa607e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.details-header button:hover {
+  background-color: #f34261; /* Slightly lighter color on hover */
+}
+
+/* Patient Info Wrapper */
+.patient-info-wrapper {
+  max-width: 400px; /* Adjust width as needed */
+  margin: 30px; /* Center container */
+  padding: 10px; /* Add padding if needed */
+  background-color: #55608f; /* Background color for better visibility */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
+
+/* Patient Information */
+.patient-info {
+  display: flex;
+  align-items: flex-start; /* Align items to the start of the container */
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+
+.patient-info .avatar-container {
+  margin-right: 20px; /* Space between avatar and details */
+}
+
+.patient-info .patient-avatar {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.info-details {
+  text-align: left; 
+  color: white;
+}
+
+.info-details h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: 600;
+}
+
+.info-details p {
+  margin: 5px 0;
+  color: white;
+}
+
+.medication-details h2{
+  color: white;
+  margin-left: 30px;
+  font-size: 1.5rem;
+}
+
+/* Medication Details Table */
+.medication-details table {
+  width: 800px; /* Adjust width as needed */
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  background: rgba(255, 255, 255, 0.2); /* Light background for the table */
+  margin-left: 30px;
+  border-radius: 10px;
+}
+
+.medication-details th,
+.medication-details td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  color: #fff; /* Text color */
+}
+
+.medication-details th {
+  text-align: left;
+  background-color: #55608f; /* Header background color */
+}
+
+.medication-details tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Highlight row on hover */
+}
+
+.medication-details tbody td {
+  position: relative;
+}
+
+.medication-details tbody td:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9999px;
+  bottom: -9999px;
+  background-color: rgba(255, 255, 255, 0.2); /* Hover effect background */
+  z-index: -1;
+}
+
+.health-report h2{
+  color: white;
+  margin-left: 30px;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+/* Report Table Styles */
+.report-table {
+  width: 800px; /* Adjust width as needed */
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  background: rgba(255, 255, 255, 0.2); /* Light background for the table */
+  margin-left: 30px;
+  border-radius: 10px;
+}
+
+.report-table th,
+.report-table td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  color: #fff; /* Text color */
+}
+
+.report-table th {
+  text-align: left;
+  background-color: #55608f; /* Header background color */
+}
+
+.report-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Highlight row on hover */
+}
+
+.report-table tbody td {
+  position: relative;
+}
+
+.report-table tbody td:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9999px;
+  bottom: -9999px;
+  background-color: rgba(255, 255, 255, 0.2); /* Hover effect background */
+  z-index: -1;
+}
+
+
+td.status-taken .dose-status-text {
+  background-color: #4caf50; /* Green */
+}
+
+td.status-not-taken .dose-status-text {
+  background-color: #ff9800; /* Orange */
+}
+
+td.status-missed .dose-status-text {
+  background-color: #f44336; /* Red */
+}
+/* Date Range Picker */
+.date-range-picker {
+  margin-bottom: 20px;
+  margin-left: 30px;
+  color: white;
+}
+
+.date-range-picker label {
+  margin-right: 10px;
+}
+
+.date-range-picker input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.date-range-picker button {
+  background-color: #fa607e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.date-range-picker button:hover {
+  background-color: #f34261;
+}
+
+/* Additional Info */
+.additional-info h2 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 30px;
+  color: white; /* Match dashboard color scheme */
+  font-size: 1.5rem;
+}
+
+.additional-info p{
+  margin-left: 30px;
+  font-size: 1rem;
+  color: white;
+}
+
+/* Send Report Button */
+.send-report-btn {
+  background-color: #fa607e;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.send-report-btn:hover {
+  background-color: #f34261;
+}
+
+
+
+
+/* ===================================== Responsive Style CSS ==================================== */
+@media screen and (max-width: 991px) {
+  .we-are-making .text-part {
+    text-align: center; }
+
+  .we-are-making .text-part .count .count-sing {
+    margin-bottom: 20px; }
+
+  .headwe-nav .container {
+    padding: 10px; }
+
+  header .headwe-nav .nav-div .navbar-nav .nav-item .nav-link {
+    padding: 10px;
+    border-right: 0px; } }
+
+/*# sourceMappingURL=style.css.map */
+

@@ -1,43 +1,97 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
+<!doctype html>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form | MedicationBox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MEDIDOSE | Login</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'tracker/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-  </head>
-  <body>
+    <link rel="shortcut icon" href="{% static 'tracker/images/fav.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'tracker/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tracker/css/style.css' %}" />
+</head>
+
+<body class="form-login-body"> 
     <div class="container">
-      <div class="wrapper">
-        <div class="title"><span>Login Form</span></div>
-        <form method="post" action="{% url 'login' %}">
-          {% csrf_token %}
-          {% if messages %}
-            <div class="error">
-              <ul>
-                {% for message in messages %}
-                  <li>{{ message }}</li>
-                {% endfor %}
-              </ul>
+        <div class="row">
+            <div class="col-lg-10 mx-auto login-desk">
+                <div class="row">
+                    <div class="col-md-7 detail-box">
+                        <img class="logo" src="{% static 'tracker/images/Medidose.png' %}" alt="MedicineBox Logo"> 
+                        <div class="detailsh">
+                            <img class="help" src="{% static 'tracker/images/medicinebox.jpg' %}" alt="MedicineBox">
+                            <h3>Track Your Medication Easily</h3>
+                            <p>Stay on top of your health with personalized dose tracking and reminders.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-5 loginform">
+                        <h4>Welcome Back</h4>                   
+                        <p>Sign in to your Account</p>
+                        {% if messages %}
+                            <div class="alert-container">
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }}">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="login-det">
+                                <div class="form-row">
+                                    <label for="{{ form.username.id_for_label }}">Username</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="far fa-user"></i>
+                                            </span>
+                                        </div>
+                                        {{ form.username }}
+                                    </div>
+                                    {% for error in form.username.errors %}
+                                        <div class="error">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-row">
+                                    <label for="{{ form.password.id_for_label }}">Password</label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        {{ form.password }}
+                                    </div>
+                                    {% for error in form.password.errors %}
+                                        <div class="error">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <p class="forget"><a href="#">Forgot Password?</a></p>
+                                
+                                <button class="btn btn-sm btn-danger" type="submit">Login</button>
+
+                                <p class="register">Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-          {% endif %}
-          <div class="row">
-            <i class="fas fa-user"></i>
-            <input type="text" name="username" placeholder="Username" required>
-          </div>
-          <div class="row">
-            <i class="fas fa-lock"></i>
-            <input type="password" name="password" placeholder="Password" required>
-          </div>
-          <div class="pass"><a href="#">Forgot password?</a></div>
-          <div class="row button">
-            <input type="submit" value="Login">
-          </div>
-          <div class="signup-link">Not a member? <a href="{% url 'register' %}">Signup now</a></div>
-        </form>
-      </div>
+        </div>
     </div>
-  </body>
+
+    <script src="{% static 'tracker/js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'tracker/js/popper.min.js' %}"></script>
+    <script src="{% static 'tracker/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'tracker/plugins/scroll-fixed/jquery-scrolltofixed-min.js' %}"></script>
+    <script src="{% static 'tracker/plugins/slider/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'tracker/js/script.js' %}"></script>
+</body>
 </html>

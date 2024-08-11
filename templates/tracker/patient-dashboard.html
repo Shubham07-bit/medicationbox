@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    {% load static %}
+    {% load custom_filters %}
+    <link rel="shortcut icon" href="{% static 'tracker/images/fav.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'tracker/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tracker/css/style.css' %}" />
+</head>
+<body class="patient-dashboard-body">
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <img src="{% static 'tracker/images/Medidose.png' %}" alt="Logo" class="medidose-logo">
+        <div class="user-info">
+            <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="User Avatar" class="user-avatar">
+            <h2>John Doe</h2>
+            <p>Admin</p>
+        </div>
+        <nav class="nav-menu">
+            <a href="{% url 'patient_dashboard' %}" class="nav-item">Dashboard</a>
+            <a href="{% url 'contact' %}" class="nav-item">Contact</a>
+            <a href="{% url 'help' %}" class="nav-item">Help</a>
+            <a href="{% url 'login' %}" class="nav-item">Logout</a>
+            <!-- Add more links as needed -->
+        </nav>
+    </div>
+
+<div id="main">
+    <div id="main" class="main-content">
+        <div class="dashboard-header">
+            <img src="{% static 'tracker/images/Medidose.png'%}" alt="Logo" class="medidose-logo">
+            <h1>Patient Dashboard</h1>
+            <button class="openbtn" onclick="openNav()">☰</button>
+        </div>
+        <main class="dashboard-main">
+            <div class="controls-container">
+                    <input type="text" name="search" placeholder="Search patients..." class="search-bar-container">
+                    <button type="submit" class="search-btn">Search</button>
+                    <button class="add-patient-btn" onclick="location.href='{% url 'patient_registration' %}'">Add Patient</button>
+            </div>
+            <div class="patient-cards-container">
+                {% for patient in patients %}
+                <div class="patient-card">
+                    <div class="card-top">
+                        <div class="patient-photo-container">
+                            <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="Patient Photo" class="user-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        </div>
+                    </div>
+                    <div class="card-bottom">
+                        <h2 class="patient-name">{{ patient.name }}</h2>
+                        <p class="patient-details">Age: {{ patient.age }} | Gender: {{ patient.gender }}</p>
+                        <p class="patient-details">Disease: {{ patient.disease }}</p>
+                        <ul class="dose-status">
+                            {% with patient_doses|get_doses:patient.device_id as doses %}
+                                {% for dose in doses %}
+                                    <li class="{% if dose.morning_dose == 'taken' %}status-taken{% elif dose.morning_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
+                                        <div class="dose-status-item">
+                                            <span class="dose-type">Morning Dose:</span>
+                                            <span class="dose-status-text">{{ dose.morning_dose|capfirst }}</span>
+                                        </div>
+                                    </li>
+                                    <li class="{% if dose.noon_dose == 'taken' %}status-taken{% elif dose.noon_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
+                                        <div class="dose-status-item">
+                                            <span class="dose-type">Noon Dose:</span>
+                                            <span class="dose-status-text">{{ dose.noon_dose|capfirst }}</span>
+                                        </div>
+                                    </li>
+                                    <li class="{% if dose.evening_dose == 'taken' %}status-taken{% elif dose.evening_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
+                                        <div class="dose-status-item">
+                                            <span class="dose-type">Evening Dose:</span>
+                                            <span class="dose-status-text">{{ dose.evening_dose|capfirst }}</span>
+                                        </div>
+                                    </li>
+                                    <li class="{% if dose.night_dose == 'taken' %}status-taken{% elif dose.night_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
+                                        <div class="dose-status-item">
+                                            <span class="dose-type">Night Dose:</span>
+                                            <span class="dose-status-text">{{ dose.night_dose|capfirst }}</span>
+                                        </div>
+                                    </li>
+                                {% empty %}
+                                
+                                    <li class="status-not-taken">
+                                        <div class="dose-status-item">
+                                            <span class="dose-type">Morning Dose:</span>
+                                            <span class="dose-status-text">Not_taken</span>
+                                        </div>
+                                    </li>
+                                    <li class="status-not-taken">
+                                        <div class="dose-status-item">
+                                            <span class="dose-type">Noon Dose:</span>
+                                            <span class="dose-status-text">Note_taken</span>
+                                        </div>
+                                    </li>
+                                    <li class="status-not-taken">
+                                        <div class="dose-status-item">
+                                            <span class="dose-type">Evening Dose:</span>
+                                            <span class="dose-status-text">Not_taken</span>
+                                        </div>
+                                    </li>
+                                    <li class="status-not-taken">
+                                        <div class="dose-status-item">
+                                            <span class="dose-type">Night Dose:</span>
+                                            <span class="dose-status-text">Not_taken</span>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% endwith %}
+                        </ul>
+                    </div>
+                    <button class="view-details-btn" onclick="location.href='{% url 'patient_details' patient.device_id %}'">View Details</button>
+                </div>
+                {% empty %}
+                <p>No patients found.</p>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+
+</body>
+</html>

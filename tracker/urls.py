@@ -1,15 +1,18 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.login, name='login'),
-    path('home/', views.home, name='home'),
-    path('weekly_report/', views.weekly_report, name='weekly_report'),  # No week_number parameter
-    path('monthly_report/', views.monthly_report, name='monthly_report'),
-    path('api/real_time_data/', views.real_time_data, name='real_time_data'),
-    path('real_time_report/', views.real_time_data, name='real_time_report'),
-    path('send_report/', views.send_report, name='send_report'),
-    path('register/', views.register, name='register'),
-    path('logout/', views.logout, name='logout'),
-    path('test-pdf-render/', views.test_pdf_render, name='test_pdf_render'),
-]
+    path('', views.login_view, name='login'),
+    path('patient_dashboard/', views.patient_dashboard, name='patient_dashboard'),
+    path('patient/<int:device_id>/', views.patient_details, name='patient_details'),
+    path('search/', views.search_patients, name='search_patients'),
+    path('patient/<int:device_id>/generate_report/', views.generate_report, name='generate_report'),
+    path('patient_registration/', views.patient_registration, name='patient_registration'),
+    path('view_details/', views.view_details, name='view_details'),
+    path('send_report/<str:device_id>/', views.send_report, name='send_report'),
+    path('register/', views.register_view, name='register'),
+    path('contact/', views.contact, name='contact'),
+    path('help/', views.help, name='help'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
