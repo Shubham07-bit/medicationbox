@@ -45,7 +45,6 @@ CSRF_TRUSTED_ORIGINS = ['https://medicationbox-production.up.railway.app']
 
 INSTALLED_APPS = [
     'tracker.apps.TrackerConfig',
-    'livereload',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
