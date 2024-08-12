@@ -16,36 +16,31 @@
     <link rel="stylesheet" type="text/css" href="{% static 'tracker/css/style.css' %}" />
 </head>
 <body class="patient-dashboard-body">
-
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <img src="{% static 'tracker/images/Medidose.png' %}" alt="Logo" class="medidose-logo">
-        <div class="user-info">
-            <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="User Avatar" class="user-avatar">
-            <h2>John Doe</h2>
-            <p>Admin</p>
-        </div>
-        <nav class="nav-menu">
-            <a href="{% url 'patient_dashboard' %}" class="nav-item">Dashboard</a>
-            <a href="{% url 'contact' %}" class="nav-item">Contact</a>
-            <a href="{% url 'help' %}" class="nav-item">Help</a>
-            <a href="{% url 'login' %}" class="nav-item">Logout</a>
-            <!-- Add more links as needed -->
-        </nav>
-    </div>
-
 <div id="main">
     <div id="main" class="main-content">
         <div class="dashboard-header">
-            <img src="{% static 'tracker/images/Medidose.png'%}" alt="Logo" class="medidose-logo">
+            <img src="{% static 'tracker/images/Medidose.png' %}" alt="Medidose Logo" class="medidose-logo">
             <h1>Patient Dashboard</h1>
-            <button class="openbtn" onclick="openNav()">☰</button>
+            <button class="openbtn" onclick="toggleMenu()">☰</button>
+        </div>
+        <div id="menu" class="slide-down-menu">
+            <div class="user-info">
+                <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="User Avatar" class="user-avatar">
+                <h2>Shubham Jolapara</h2>
+                <p>Admin</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="{% url 'patient_dashboard' %}" class="nav-item">Dashboard</a>
+                <a href="{% url 'contact' %}" class="nav-item">Contact</a>
+                <a href="{% url 'help' %}" class="nav-item">Help</a>
+                <a href="{% url 'login' %}" class="nav-item">Logout</a>
+            </nav>
         </div>
         <main class="dashboard-main">
             <div class="controls-container">
-                    <input type="text" name="search" placeholder="Search patients..." class="search-bar-container">
-                    <button type="submit" class="search-btn">Search</button>
-                    <button class="add-patient-btn" onclick="location.href='{% url 'patient_registration' %}'">Add Patient</button>
+                <input type="text" name="search" placeholder="Search patients..." class="search-bar-container">
+                <button type="submit" class="search-btn">Search</button>
+                <button class="add-patient-btn" onclick="location.href='{% url 'patient_registration' %}'">Add Patient</button>
             </div>
             <div class="patient-cards-container">
                 {% for patient in patients %}
@@ -87,29 +82,28 @@
                                         </div>
                                     </li>
                                 {% empty %}
-                                
                                     <li class="status-not-taken">
                                         <div class="dose-status-item">
                                             <span class="dose-type">Morning Dose:</span>
-                                            <span class="dose-status-text">Not_taken</span>
+                                            <span class="dose-status-text">Not Taken</span>
                                         </div>
                                     </li>
                                     <li class="status-not-taken">
                                         <div class="dose-status-item">
                                             <span class="dose-type">Noon Dose:</span>
-                                            <span class="dose-status-text">Note_taken</span>
+                                            <span class="dose-status-text">Not Taken</span>
                                         </div>
                                     </li>
                                     <li class="status-not-taken">
                                         <div class="dose-status-item">
                                             <span class="dose-type">Evening Dose:</span>
-                                            <span class="dose-status-text">Not_taken</span>
+                                            <span class="dose-status-text">Not Taken</span>
                                         </div>
                                     </li>
                                     <li class="status-not-taken">
                                         <div class="dose-status-item">
                                             <span class="dose-type">Night Dose:</span>
-                                            <span class="dose-status-text">Not_taken</span>
+                                            <span class="dose-status-text">Not Taken</span>
                                         </div>
                                     </li>
                                 {% endfor %}
@@ -126,17 +120,15 @@
     </div>
 </div>
 
-<script>
-    function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
-    }
-</script>
-
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.classList.contains("open")) {
+                menu.classList.remove("open");
+            } else {
+                menu.classList.add("open");
+            }
+        }
+    </script>
 </body>
 </html>

@@ -113,16 +113,16 @@
                     <tr>
                         <td>{{ dose.date }}</td>
                         <td class="{% if dose.morning_dose == 'taken' %}status-taken{% elif dose.morning_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
-                            {{ dose.morning_dose|capfirst }}
+                            <span class="dose-status-text">{{ dose.morning_dose|capfirst }}</span>
                         </td>
                         <td class="{% if dose.noon_dose == 'taken' %}status-taken{% elif dose.noon_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
-                            {{ dose.noon_dose|capfirst }}
+                            <span class="dose-status-text">{{ dose.noon_dose|capfirst }}</span>
                         </td>
                         <td class="{% if dose.evening_dose == 'taken' %}status-taken{% elif dose.evening_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
-                            {{ dose.evening_dose|capfirst }}
+                            <span class="dose-status-text">{{ dose.evening_dose|capfirst }}</span>
                         </td>
                         <td class="{% if dose.night_dose == 'taken' %}status-taken{% elif dose.night_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
-                            {{ dose.night_dose|capfirst }}
+                            <span class="dose-status-text">{{ dose.night_dose|capfirst }}</span>
                         </td>
                     </tr>
                     {% empty %}

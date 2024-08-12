@@ -18,13 +18,17 @@
 
 <body class="patient-registration-body">
 
-    <!-- Sidebar -->
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+     <!-- Header -->
+     <div class="registration-header">
         <img src="{% static 'tracker/images/Medidose.png' %}" alt="Logo" class="medidose-logo">
+        <h1>Patient Registration</h1>
+        <button class="openbtn" onclick="toggleMenu()">☰</button>
+    </div>
+     <!-- Slide-down Menu -->
+     <div class="slide-down-menu" id="slideDownMenu">
         <div class="user-info">
             <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="User Avatar" class="user-avatar">
-            <h2>John Doe</h2>
+            <h2>Shubham Jolapara</h2>
             <p>Admin</p>
         </div>
         <nav class="nav-menu">
@@ -36,16 +40,12 @@
         </nav>
     </div>
 
-    <!-- Main content -->
-    <div id="main">
-        <div id="main" class="main-content">
-            <!-- Header -->
-            <div class="registration-header">
-                <img src="{% static 'tracker/images/Medidose.png' %}" alt="Logo" class="medidose-logo">
-                <h1>Patient Registration</h1>
-                <button class="openbtn" onclick="openNav()">☰</button>
-            </div>
+    
 
+    <!-- Main content -->
+    
+        <div id="main" class="main-content">
+            
             <!-- Registration Form -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -90,20 +90,15 @@
                 </div>
             </div>
         </div>
-    </div>
+
 
     <script>
         function goBack() {
             window.history.back();
         }
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
+        function toggleMenu() {
+            const menu = document.getElementById("slideDownMenu");
+            menu.classList.toggle("open");
         }
     </script>
 </body>
