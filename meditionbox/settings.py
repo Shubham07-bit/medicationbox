@@ -115,7 +115,7 @@ or running on your computer turn this variable to True
 eg: POSTGRES_LOCALLY = True
 '''
 
-POSTGRES_LOCALLY = True
+POSTGRES_LOCALLY = False
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
