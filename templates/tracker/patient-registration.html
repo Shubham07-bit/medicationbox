@@ -27,15 +27,24 @@
      <!-- Slide-down Menu -->
      <div class="slide-down-menu" id="slideDownMenu">
         <div class="user-info">
-            <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="User Avatar" class="user-avatar">
-            <h2>Shubham Jolapara</h2>
-            <p>Admin</p>
-        </div>
+            <div class="avatar-container">
+                {% if request.user.userprofile.avatar %}
+                <img src="{{ request.user.userprofile.avatar.url }}" alt="User Avatar" class="user-avatar">
+                {% else %}
+                <img src="{% static 'tracker/images/default-avatar.png' %}" alt="Default Avatar" class="user-avatar">
+                {% endif %}
+                <button class="edit-avatar-btn" onclick="location.href='{% url 'update_profile' %}'">
+                <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+            <h2>{{ request.user.username }}</h2>
+            <p>{{ request.user.get_full_name }}</p>
+            </div>
         <nav class="nav-menu">
             <a href="{% url 'patient_dashboard' %}" class="nav-item">Dashboard</a>
             <a href="{% url 'contact' %}" class="nav-item">Contact</a>
             <a href="{% url 'help' %}" class="nav-item">Help</a>
-            <a href="{% url 'login' %}" class="nav-item">Logout</a>
+            <a href="{% url 'logout' %}" class="nav-item">Logout</a>
             <!-- Add more links as needed -->
         </nav>
     </div>

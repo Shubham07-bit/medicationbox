@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import Patient
+from .models import UserProfile
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -84,6 +85,28 @@ class UserRegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['avatar']  # Include any additional fields for UserProfile
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']  # Include username along with other fields
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("Username already exists. Please choose a different username.")
+        return username
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['avatar']
 
 
 

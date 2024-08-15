@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Dose
+from .models import Dose, UserProfile
 
 from django.contrib import admin
 from .models import Patient, Dose
@@ -14,4 +14,10 @@ class DoseAdmin(admin.ModelAdmin):
     list_display = ('patient', 'date', 'morning_dose', 'noon_dose', 'evening_dose', 'night_dose')
     list_filter = ('date', 'morning_dose', 'noon_dose', 'evening_dose', 'night_dose')
     search_fields = ('patient__name', 'date')
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'avatar')
+    search_fields = ('user__username', 'user__email')
 

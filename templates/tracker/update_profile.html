@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User Profile Update</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'tracker/images/fav.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'tracker/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tracker/css/style.css' %}" />
+</head>
+
+<body class="patient-registration-body">
+
+    <!-- Header -->
+    <div class="registration-header">
+        <img src="{% static 'tracker/images/Medidose.png' %}" alt="Logo" class="medidose-logo">
+        <h1>User Profile Update</h1>
+        <button class="openbtn" onclick="toggleMenu()">☰</button>
+    </div>
+
+    <!-- Slide-down Menu -->
+    <div class="slide-down-menu" id="slideDownMenu">
+        <div class="user-info">
+            <div class="avatar-container">
+                {% if request.user.userprofile.avatar %}
+                <img src="{{ request.user.userprofile.avatar.url }}" alt="User Avatar" class="user-avatar">
+                {% else %}
+                <img src="{% static 'tracker/images/default-avatar.png' %}" alt="Default Avatar" class="user-avatar">
+                {% endif %}
+                <button class="edit-avatar-btn" onclick="location.href='{% url 'update_profile' %}'">
+                <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+            <h2>{{ request.user.username }}</h2>
+            <p>{{ request.user.get_full_name }}</p>
+            </div>
+        <nav class="nav-menu">
+            <a href="{% url 'patient_dashboard' %}" class="nav-item">Dashboard</a>
+            <a href="{% url 'contact' %}" class="nav-item">Contact</a>
+            <a href="{% url 'help' %}" class="nav-item">Help</a>
+            <a href="{% url 'logout' %} class="nav-item">Logout</a>
+        </nav>
+    </div>
+
+    <!-- Main content -->
+    <div id="main" class="main-content">
+        <!-- Profile Update Form -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="registration-desk">
+                    <div class="registration-form">
+                        <button onclick="goBack()" class="back-btn">← Back</button>
+                        <form action="{% url 'update_profile' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" value="{{ user_form.username.value }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Enter First Name" value="{{ user_form.first_name.value }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Enter Last Name" value="{{ user_form.last_name.value }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" value="{{ user_form.email.value }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="avatar">Profile Photo (optional)</label>
+                                <input type="file" id="avatar" name="avatar" class="form-control-file">
+                            </div>
+                            <button type="submit" class="btn">Save changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        function toggleMenu() {
+            const menu = document.getElementById("slideDownMenu");
+            menu.classList.toggle("open");
+        }
+    </script>
+</body>
+
+</html>

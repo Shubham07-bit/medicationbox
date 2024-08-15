@@ -26,4 +26,9 @@ $(document).ready(function() {
         $('#sidePanel').toggleClass('show');
         $(this).toggleClass('active'); // Optional: to change button style when panel is open
     });
+
+    // Toggle slide-down menu
+    $('.openbtn').on('click', function() {
+        $('#menu').toggleClass('open');
+    });
 });

@@ -1,19 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
-from .models import Dose, Patient
+from .models import Dose, Patient, UserProfile
 from datetime import datetime
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.dateparse import parse_date
 from django.http import HttpResponse, JsonResponse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from xhtml2pdf import pisa
 from io import BytesIO
-from .forms import UserLoginForm, UserRegistrationForm, PatientRegistrationForm, AuthenticationForm
+from .forms import UserLoginForm, UserRegistrationForm, PatientRegistrationForm,UserProfileForm, UserUpdateForm, ProfileUpdateForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -28,6 +31,7 @@ def login_view(request):
         form = UserLoginForm()
     
     return render(request, 'tracker/login.html', {'form': form})
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -49,7 +53,9 @@ def register_view(request):
 from django.utils import timezone
 from django.db.models import Q
 
+@login_required
 def patient_dashboard(request):
+    update_profile(request)
     search_query = request.GET.get('search', '')
     today = timezone.now().date()
     
@@ -72,7 +78,25 @@ def patient_dashboard(request):
         'patient_doses': patient_doses,
     })
 
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('patient_dashboard')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = UserProfileForm(instance=request.user.userprofile)
 
+    return render(request, 'tracker/update_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+@login_required
 def patient_details(request, device_id):
     patient = get_object_or_404(Patient, device_id=device_id)
     context = {
@@ -80,6 +104,7 @@ def patient_details(request, device_id):
     }
     return render(request, 'tracker/view-details.html', context)
 
+@login_required
 def search_patients(request):
     search_query = request.GET.get('query', '')
     if search_query:
@@ -90,6 +115,7 @@ def search_patients(request):
     data = list(patients.values('id', 'name', 'age', 'gender', 'disease'))
     return JsonResponse({'patients': data})
 
+@login_required
 def patient_registration(request):
     if request.method == 'POST':
         form = PatientRegistrationForm(request.POST, request.FILES)
@@ -100,6 +126,7 @@ def patient_registration(request):
         form = PatientRegistrationForm()
     return render(request, 'tracker/patient-registration.html')
 
+@login_required
 def generate_report(request, device_id):
     patient = get_object_or_404(Patient, device_id=device_id)
     if request.method == 'POST':
@@ -134,6 +161,7 @@ def generate_report(request, device_id):
     end_date = request.session.get('end_date', '')
     return render(request, 'tracker/view-details.html', {'patient': patient, 'start_date': start_date, 'end_date': end_date})
 
+@login_required
 def send_report(request, device_id):
     patient = get_object_or_404(Patient, device_id=device_id)
     if request.method == 'POST':
@@ -177,17 +205,22 @@ def send_report(request, device_id):
 
     return redirect('patient_details', device_id=device_id)
 
-
+@login_required
 def contact(request):
     pass
 
+@login_required
 def help(request):
     pass
 
+@login_required
 def view_details(request):
     return render(request, 'tracker/view-details.html')
 
-
+@login_required
+def logout(request):
+    auth_logout(request)
+    return redirect('login')
 
 
 

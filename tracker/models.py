@@ -1,6 +1,15 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(default='profile_photos/default-avatar.png', upload_to='profile_photos/', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
+    
 class Patient(models.Model):
     # Patient details
     device_id = models.CharField(max_length=100, unique=True)
