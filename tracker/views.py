@@ -10,7 +10,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from xhtml2pdf import pisa
 from io import BytesIO
-from .forms import UserLoginForm, UserRegistrationForm, PatientRegistrationForm,UserProfileForm, UserUpdateForm, ProfileUpdateForm, AuthenticationForm
+from .forms import UserLoginForm, UserRegistrationForm, PatientRegistrationForm, PatientEditForm, UserProfileForm, UserUpdateForm, ProfileUpdateForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
 from django.contrib.auth.models import User
@@ -95,6 +95,20 @@ def update_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+@login_required(login_url='login')
+def edit_patient(request, device_id):
+    patient = get_object_or_404(Patient, device_id=device_id)
+    
+    if request.method == 'POST':
+        form = PatientEditForm(request.POST, request.FILES, instance=patient)
+        if form.is_valid():
+            form.save()
+            return redirect('patient_details', device_id=patient.device_id)  # Adjust this redirect to your needs
+    else:
+        form = PatientEditForm(instance=patient)
+    
+    return render(request, 'tracker/edit_patient.html', {'form': form, 'patient': patient})
 
 @login_required(login_url='login')
 def patient_details(request, device_id):

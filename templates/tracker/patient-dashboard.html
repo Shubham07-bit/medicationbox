@@ -55,7 +55,11 @@
                 <div class="patient-card">
                     <div class="card-top">
                         <div class="patient-photo-container">
-                            <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="Patient Photo" class="user-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            {% if patient.photo %}
+                            <img src="{{ patient.photo.url }}?{{ patient.updated_at }}" alt="Patient Photo" class="user-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            {% else %}
+                            <img src="{% static 'tracker/images/default-avatar.png' %}" alt="Default Patient Photo" class="user-avatar">
+                            {% endif %}
                         </div>
                     </div>
                     <div class="card-bottom">

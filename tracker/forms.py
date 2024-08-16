@@ -151,3 +151,29 @@ class PatientRegistrationForm(forms.ModelForm):
         required=False,
         widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'})
     )
+
+
+class PatientEditForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        fields = ['device_id', 'name', 'age', 'gender', 'disease', 'photo']
+        
+        # Optional: Add custom widgets if needed
+        widgets = {
+            'device_id': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'gender': forms.Select(attrs={'class': 'form-control'}),
+            'disease': forms.TextInput(attrs={'class': 'form-control'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
+        
+        # Optional: Add custom labels if needed
+        labels = {
+            'device_id': 'Device ID',
+            'name': 'Full Name',
+            'age': 'Age',
+            'gender': 'Gender',
+            'disease': 'Disease',
+            'photo': 'Patient Photo',
+        }

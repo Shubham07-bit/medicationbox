@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+import os
 
 
 class UserProfile(models.Model):
@@ -18,6 +19,7 @@ class Patient(models.Model):
     gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
     disease = models.CharField(max_length=255, blank=True, null=True)
     photo = models.ImageField(upload_to='patient_photos/', blank=True, null=True)  # New field for patient photo
+    updated_at = models.DateTimeField(auto_now=True)  # Automatically updates on save
     
     def __str__(self):
         return self.name
@@ -35,9 +37,20 @@ class Patient(models.Model):
         )
 
     def save(self, *args, **kwargs):
-        is_new = self.pk is None
+        # Check if this is an update
+        if self.pk:
+            # Fetch the current patient object from the database
+            old_photo = Patient.objects.get(pk=self.pk).photo
+            if old_photo and old_photo != self.photo:
+                # If there was an old photo and it's different from the new photo, delete the old one
+                if os.path.isfile(old_photo.path):
+                    os.remove(old_photo.path)
+
+        # Call the parent class's save method
         super().save(*args, **kwargs)
-        if is_new:
+
+        # Create default doses for a new patient
+        if not self.pk:
             self.create_default_doses()
 
 class Dose(models.Model):

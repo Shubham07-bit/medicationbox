@@ -14,142 +14,182 @@
     <link rel="stylesheet" href="{% static 'tracker/plugins/slider/css/owl.theme.default.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'tracker/css/style.css' %}" />
 </head>
-<body class="patient-details-body">
-    <div class="patient-details-container">
-        <!-- Header -->
-        <header class="details-header">
-            <button onclick="goBack()">← Back</button>
+<body class="patient-dashboard-body">
+<div id="main">
+    <div id="main" class="main-content">
+        <div class="dashboard-header">
+            <img src="{% static 'tracker/images/Medidose.png' %}" alt="Medidose Logo" class="medidose-logo">
             <h1>Patient Details</h1>
-        </header>
-
-        <!-- Success Message -->
-        {% if messages %}
-        <div class="alert alert-success">
-            {% for message in messages %}
-            <p>{{ message }}</p>
-            {% endfor %}
+            <button class="openbtn" onclick="toggleMenu()">☰</button>
         </div>
-        {% endif %}
-
-        <!-- Patient Information -->
-        <section class="patient-info-wrapper">
-            <div class="patient-info">
-                <div class="avatar-container">
-                    {% if patient.photo %}
-                        <img src="{% static 'tracker/images/user-avatar.jpeg' %}" alt="Patient Avatar" class="patient-avatar">
-                    {% endif %}
-                </div>
-                <div class="info-details">
-                    <h2>{{ patient.name }}</h2>
-                    <p>Age: {{ patient.age }}</p>
-                    <p>Gender: {{ patient.get_gender_display }}</p>
-                    <p>Disease: {{ patient.disease }}</p>
-                    <!-- <p>Contact: {{ patient.contact }}</p> -->
-                </div>
+        <div id="menu" class="slide-down-menu">
+            <div class="user-info">
+            <div class="avatar-container">
+                {% if request.user.userprofile.avatar %}
+                <img src="{{ request.user.userprofile.avatar.url }}" alt="User Avatar" class="user-avatar">
+                {% else %}
+                <img src="{% static 'tracker/images/default-avatar.png' %}" alt="Default Avatar" class="user-avatar">
+                {% endif %}
+                <button class="edit-avatar-btn" onclick="location.href='{% url 'update_profile' %}'">
+                <i class="fas fa-pencil-alt"></i>
+                </button>
             </div>
-        </section>
+            <h2>{{ request.user.username }}</h2>
+            <p>{{ request.user.get_full_name }}</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="{% url 'patient_dashboard' %}" class="nav-item">Dashboard</a>
+                <a href="{% url 'contact' %}" class="nav-item">Contact</a>
+                <a href="{% url 'logout' %}" class="nav-item">Logout</a>
+            </nav>
+        </div>
+        <div class="patient-details-container">
+            <!-- Header -->
+            <header class="details-header">
+                <button onclick="goBack()">← Back</button>
+                <button onclick="location.href='{% url 'edit_patient' patient.device_id %}'" class="edit-details-btn">Edit Details</button>
+            </header>
 
-        <!-- Medication Details -->
-        <section class="medication-details">
-            <h2>Medication Summary</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Medication</th>
-                        <th>Dosage</th>
-                        <th>Frequency</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Medication A</td>
-                        <td>500mg</td>
-                        <td>Twice a day</td>
-                    </tr>
-                    <tr>
-                        <td>Medication B</td>
-                        <td>250mg</td>
-                        <td>Once a day</td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
-        </section>
+            <!-- Success Message -->
+            {% if messages %}
+            <div class="alert alert-success">
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
 
-        <!-- Health Report -->
-        <section class="health-report">
-            <h2>Health Report for {{ patient.name }}</h2>
-            <form method="post" action="{% url 'generate_report' patient.device_id %}">
-                {% csrf_token %}
-                <div class="date-range-picker">
-                    <label for="start-date">Start Date:</label>
-                    <input type="date" id="start-date" name="start-date" value="{{ start_date }}" required>
-                    <label for="end-date">End Date:</label>
-                    <input type="date" id="end-date" name="end-date" value="{{ end_date }}" required>
-                    <button type="submit">Generate Report</button>
+            <!-- Patient Information -->
+            <section class="patient-info-wrapper">
+                <div class="patient-info">
+                    <div class="avatar-container">
+                        {% if patient.photo %}
+                            <img src="{{ patient.photo.url }}?{{ patient.updated_at }}" alt="Patient Avatar" class="patient-avatar">
+                        {% else %}
+                            <img src="{% static 'tracker/images/default-avatar.jpeg' %}" alt="Patient Avatar" class="patient-avatar">
+                        {% endif %}
+                    </div>
+                    <div class="info-details">
+                        <h2>{{ patient.name }}</h2>
+                        <p>Age: {{ patient.age }}</p>
+                        <p>Gender: {{ patient.get_gender_display }}</p>
+                        <p>Disease: {{ patient.disease }}</p>
+                        <!-- <p>Contact: {{ patient.contact }}</p> -->
+                    </div>
                 </div>
-            </form>
-            
-            <form method="post" action="{% url 'send_report' patient.device_id %}">
-                {% csrf_token %}
-                <div class="date-range-picker">
-                    <input type="hidden" name="start-date" value="{{ start_date }}">
-                    <input type="hidden" name="end-date" value="{{ end_date }}">
-                    <button type="submit">Send Report</button>
-                </div>
-            </form>
-            <table class="report-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Morning Dose</th>
-                        <th>Noon Dose</th>
-                        <th>Evening Dose</th>
-                        <th>Night Dose</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for dose in report_data %}
-                    <tr>
-                        <td>{{ dose.date }}</td>
-                        <td class="{% if dose.morning_dose == 'taken' %}status-taken{% elif dose.morning_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
-                            <span class="dose-status-text">{{ dose.morning_dose|capfirst }}</span>
-                        </td>
-                        <td class="{% if dose.noon_dose == 'taken' %}status-taken{% elif dose.noon_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
-                            <span class="dose-status-text">{{ dose.noon_dose|capfirst }}</span>
-                        </td>
-                        <td class="{% if dose.evening_dose == 'taken' %}status-taken{% elif dose.evening_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
-                            <span class="dose-status-text">{{ dose.evening_dose|capfirst }}</span>
-                        </td>
-                        <td class="{% if dose.night_dose == 'taken' %}status-taken{% elif dose.night_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
-                            <span class="dose-status-text">{{ dose.night_dose|capfirst }}</span>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5">No doses available for the selected date range.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
+            </section>
 
-        <!-- Additional Sections -->
-        <section class="additional-info">
-            <h2>Notes/Comments</h2>
-            <p>Additional notes from healthcare provider...</p>
-            
-            <h2>Upcoming Appointments</h2>
-            <p>No upcoming appointments scheduled.</p>
-            
-            <h2>Emergency Contacts</h2>
-            <p>John Doe - (123) 456-7890</p>
-        </section>
+            <!-- Medication Details -->
+            <section class="medication-details">
+                <h2>Medication Summary</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Medication</th>
+                            <th>Dosage</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Medication A</td>
+                            <td>500mg</td>
+                            <td>Twice a day</td>
+                        </tr>
+                        <tr>
+                            <td>Medication B</td>
+                            <td>250mg</td>
+                            <td>Once a day</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Health Report -->
+            <section class="health-report">
+                <h2>Health Report for {{ patient.name }}</h2>
+                <form method="post" action="{% url 'generate_report' patient.device_id %}">
+                    {% csrf_token %}
+                    <div class="date-range-picker">
+                        <label for="start-date">Start Date:</label>
+                        <input type="date" id="start-date" name="start-date" value="{{ start_date }}" required>
+                        <label for="end-date">End Date:</label>
+                        <input type="date" id="end-date" name="end-date" value="{{ end_date }}" required>
+                        <button type="submit">Generate Report</button>
+                    </div>
+                </form>
+                
+                <form method="post" action="{% url 'send_report' patient.device_id %}">
+                    {% csrf_token %}
+                    <div class="date-range-picker">
+                        <input type="hidden" name="start-date" value="{{ start_date }}">
+                        <input type="hidden" name="end-date" value="{{ end_date }}">
+                        <button type="submit">Send Report</button>
+                    </div>
+                </form>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Morning Dose</th>
+                            <th>Noon Dose</th>
+                            <th>Evening Dose</th>
+                            <th>Night Dose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dose in report_data %}
+                        <tr>
+                            <td>{{ dose.date }}</td>
+                            <td class="{% if dose.morning_dose == 'taken' %}status-taken{% elif dose.morning_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
+                                <span class="dose-status-text">{{ dose.morning_dose|capfirst }}</span>
+                            </td>
+                            <td class="{% if dose.noon_dose == 'taken' %}status-taken{% elif dose.noon_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
+                                <span class="dose-status-text">{{ dose.noon_dose|capfirst }}</span>
+                            </td>
+                            <td class="{% if dose.evening_dose == 'taken' %}status-taken{% elif dose.evening_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
+                                <span class="dose-status-text">{{ dose.evening_dose|capfirst }}</span>
+                            </td>
+                            <td class="{% if dose.night_dose == 'taken' %}status-taken{% elif dose.night_dose == 'missed' %}status-missed{% else %}status-not-taken{% endif %}">
+                                <span class="dose-status-text">{{ dose.night_dose|capfirst }}</span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No doses available for the selected date range.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Additional Sections -->
+            <section class="additional-info">
+                <h2>Notes/Comments</h2>
+                <p>Additional notes from healthcare provider...</p>
+                
+                <h2>Upcoming Appointments</h2>
+                <p>No upcoming appointments scheduled.</p>
+                
+                <h2>Emergency Contacts</h2>
+                <p>John Doe - (123) 456-7890</p>
+            </section>
+        </div>
     </div>
+</div>
 
     <script>
         function goBack() {
             window.history.back();
+        }
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.classList.contains("open")) {
+                menu.classList.remove("open");
+            } else {
+                menu.classList.add("open");
+            }
         }
     </script>
 </body>
